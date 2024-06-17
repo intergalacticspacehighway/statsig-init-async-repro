@@ -1,12 +1,16 @@
+import { StatsigProvider } from "@/components/statsig-provider";
 import { useDynamicConfig } from "@statsig/expo-bindings";
 
 export default function App() {
-  return <AccessDynamicConfig />;
+  return (
+    <StatsigProvider>
+      <AccessDynamicConfig />
+    </StatsigProvider>
+  );
 }
 
 const AccessDynamicConfig = () => {
   const config = useDynamicConfig("test_flag");
   const enabled = config.get("testFlag", false);
-  console.log("testFlag", enabled);
-  return enabled;
+  return <div>{enabled.toString()}</div>;
 };
